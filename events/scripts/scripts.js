@@ -72,6 +72,8 @@ export default function decorateArea(area = document) {
   autoUpdateContent(area, miloDeps, photosData);
 }
 
+const prodDomains = ['milo.adobe.com', 'business.adobe.com', 'www.adobe.com', 'news.adobe.com', 'helpx.adobe.com'];
+
 // Add project-wide style path here.
 const STYLES = '';
 
@@ -81,6 +83,12 @@ const CONFIG = {
   contentRoot: '/events',
   imsClientId: 'events-milo',
   miloLibs: LIBS,
+  prodDomains,
+  htmlExclude: [
+    /www\.adobe\.com\/(\w\w(_\w\w)?\/)?express(\/.*)?/,
+    /www\.adobe\.com\/(\w\w(_\w\w)?\/)?go(\/.*)?/,
+    /www\.adobe\.com\/(\w\w(_\w\w)?\/)?learn(\/.*)?/,
+  ],
   // imsScope: 'AdobeID,openid,gnav',
   // geoRouting: 'off',
   // fallbackRouting: 'off',
@@ -270,6 +278,6 @@ if (getMetadata('event-details-page') === 'yes') await validatePageAndRedirect(L
 (async function loadPage() {
   await loadLana({ clientId: 'events-milo' });
   await loadArea().then(() => {
-    lazyCaptureProfile();
+    if (getMetadata('event-details-page') === 'yes') lazyCaptureProfile();
   });
 }());
