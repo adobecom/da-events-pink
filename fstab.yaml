@@ -1,5 +1,5 @@
 mountpoints:
   /:
-    url: https://content.da.live/adobecom/da-events/
+    url: https://content.da.live/adobecom/da-events-pink/
     type: markup
 
